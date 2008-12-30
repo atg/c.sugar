@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+
+<!--
+	Originally written by Alex Gordon of Fileability
+	     http://fileability.net
+	
+	This is in the public domain.
+-->
+
+<syntax name="sourcecode.c">
+    <zones>
+
+		<!-- ================
+		 	 === Comments ===
+		     ================ -->
+		
+		<!-- Block Comments -->
+        <zone name="comment.block.c">
+            <starts-with>
+                <expression>/\*</expression>
+                <capture number="0" name="punctuation.definition.comment.begin.c"/>
+            </starts-with>
+            <ends-with>
+                <expression>\*/</expression>
+                <capture number="0" name="punctuation.definition.comment.end.c"/>
+            </ends-with>
+        </zone>
+
+		<!-- Line Comments -->
+		<zone name="comment.line.double-slash.js">
+			<expression>(//).*$\n?</expression>
+			<capture number="1" name="punctuation.definition.begin"/>
+		</zone>
+		
+		<!-- ================
+			 === Keywords ===
+			 ================ -->
+
+		<!-- Keywords -->
+		<zone name="keyword.control.c">
+		    <expression>\b(break|case|continue|default|do|else|for|goto|if|_Pragma|return|switch|while|sizeof)\b</expression>
+		</zone>
+
+		<!-- Storage Types -->
+		<zone name="storage.type.c">
+		    <expression>\b(asm|__asm__|auto|bool|_Bool|char|_Complex|double|enum|float|_Imaginary|int|long|short|signed|struct|typedef|union|unsigned|void)\b</expression>
+		</zone>
+
+		<!-- Extra Storage Types -->
+		<zone name="storage.type.extra.typesh.c">
+		    <expression>\b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|qaddr_t|caddr_t|daddr_t|dev_t|fixpt_t|blkcnt_t|blksize_t|gid_t|in_addr_t|in_port_t|ino_t|key_t|mode_t|nlink_t|id_t|pid_t|off_t|segsz_t|swblk_t|uid_t|id_t|clock_t|size_t|ssize_t|time_t|useconds_t|suseconds_t)\b</expression>
+		</zone>
+
+		<!-- Extra Storage Types 2 -->
+		<zone name="support.type.extra.stdinth.c">
+		    <expression>\b(int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|int_least8_t|int_least16_t|int_least32_t|int_least64_t|uint_least8_t|uint_least16_t|uint_least32_t|uint_least64_t|int_fast8_t|int_fast16_t|int_fast32_t|int_fast64_t|uint_fast8_t|uint_fast16_t|uint_fast32_t|uint_fast64_t|intptr_t|uintptr_t|intmax_t|intmax_t|uintmax_t|uintmax_t)\b</expression>
+		</zone>
+
+		<!-- Modifiers -->
+		<zone name="storage.type.modifier.c">
+		    <expression>\b(const|extern|register|restrict|static|volatile|inline)\b</expression>
+		</zone>
+    	
+		<!-- =================
+			 === Constants ===
+			 ================= -->
+
+		<!--  Numeric Constants -->
+		<zone name="constant.numeric.c">
+		    <expression>\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b</expression>
+		</zone>
+
+		<!-- Language Constants -->
+		<zone name="constant.language.c">
+		    <expression>\b(NULL|true|false|TRUE|FALSE)\b</expression>
+		</zone>
+		
+		<!-- String Literals -->
+		<zone name="string.quoted.double.c">
+		    <starts-with>
+		        <expression>"</expression>
+		        <capture number="0" name="punctuation.definition.string.begin.c"/>
+		    </starts-with>
+		    <ends-with>
+		        <expression>"</expression>
+		        <capture number="0" name="punctuation.definition.string.end.c"/>
+		    </ends-with>
+		    <subzones>
+		        <include collection="string_escaped_char"/>
+		        <include collection="string_placeholder"/>
+		    </subzones>
+		</zone>
+
+		<!-- Character Literals -->
+		<zone name="string.quoted.single.c">
+		    <starts-with>
+		        <expression>'</expression>
+		        <capture number="0" name="punctuation.definition.string.begin.c"/>
+		    </starts-with>
+		    <ends-with>
+		        <expression>'</expression>
+		        <capture number="0" name="punctuation.definition.string.end.c"/>
+		    </ends-with>
+		    <subzones>
+		        <include collection="string_escaped_char"/>
+		    </subzones>
+		</zone>
+		
+		
+		
+		<!-- =================
+			 === Functions ===
+			 ================= -->
+
+		<!-- Standard Library -->
+		<zone name="support.function.C99.c">
+		    <expression>\b(hypot(f|l)?|s(scanf|ystem|nprintf|ca(nf|lb(n(f|l)?|ln(f|l)?))|i(n(h(f|l)?|f|l)?|gn(al|bit))|tr(s(tr|pn)|nc(py|at|mp)|c(spn|hr|oll|py|at|mp)|to(imax|d|u(l(l)?|max)|k|f|l(d|l)?)|error|pbrk|ftime|len|rchr|xfrm)|printf|et(jmp|vbuf|locale|buf)|qrt(f|l)?|w(scanf|printf)|rand)|n(e(arbyint(f|l)?|xt(toward(f|l)?|after(f|l)?))|an(f|l)?)|c(s(in(h(f|l)?|f|l)?|qrt(f|l)?)|cos(h(f)?|f|l)?|imag(f|l)?|t(ime|an(h(f|l)?|f|l)?)|o(s(h(f|l)?|f|l)?|nj(f|l)?|pysign(f|l)?)|p(ow(f|l)?|roj(f|l)?)|e(il(f|l)?|xp(f|l)?)|l(o(ck|g(f|l)?)|earerr)|a(sin(h(f|l)?|f|l)?|cos(h(f|l)?|f|l)?|tan(h(f|l)?|f|l)?|lloc|rg(f|l)?|bs(f|l)?)|real(f|l)?|brt(f|l)?)|t(ime|o(upper|lower)|an(h(f|l)?|f|l)?|runc(f|l)?|gamma(f|l)?|mp(nam|file))|i(s(space|n(ormal|an)|cntrl|inf|digit|u(nordered|pper)|p(unct|rint)|finite|w(space|c(ntrl|type)|digit|upper|p(unct|rint)|lower|al(num|pha)|graph|xdigit|blank)|l(ower|ess(equal|greater)?)|al(num|pha)|gr(eater(equal)?|aph)|xdigit|blank)|logb(f|l)?|max(div|abs))|di(v|fftime)|_Exit|unget(c|wc)|p(ow(f|l)?|ut(s|c(har)?|wc(har)?)|error|rintf)|e(rf(c(f|l)?|f|l)?|x(it|p(2(f|l)?|f|l|m1(f|l)?)?))|v(s(scanf|nprintf|canf|printf|w(scanf|printf))|printf|f(scanf|printf|w(scanf|printf))|w(scanf|printf)|a_(start|copy|end|arg))|qsort|f(s(canf|e(tpos|ek))|close|tell|open|dim(f|l)?|p(classify|ut(s|c|w(s|c))|rintf)|e(holdexcept|set(e(nv|xceptflag)|round)|clearexcept|testexcept|of|updateenv|r(aiseexcept|ror)|get(e(nv|xceptflag)|round))|flush|w(scanf|ide|printf|rite)|loor(f|l)?|abs(f|l)?|get(s|c|pos|w(s|c))|re(open|e|ad|xp(f|l)?)|m(in(f|l)?|od(f|l)?|a(f|l|x(f|l)?)?))|l(d(iv|exp(f|l)?)|o(ngjmp|cal(time|econv)|g(1(p(f|l)?|0(f|l)?)|2(f|l)?|f|l|b(f|l)?)?)|abs|l(div|abs|r(int(f|l)?|ound(f|l)?))|r(int(f|l)?|ound(f|l)?)|gamma(f|l)?)|w(scanf|c(s(s(tr|pn)|nc(py|at|mp)|c(spn|hr|oll|py|at|mp)|to(imax|d|u(l(l)?|max)|k|f|l(d|l)?|mbs)|pbrk|ftime|len|r(chr|tombs)|xfrm)|to(b|mb)|rtomb)|printf|mem(set|c(hr|py|mp)|move))|a(s(sert|ctime|in(h(f|l)?|f|l)?)|cos(h(f|l)?|f|l)?|t(o(i|f|l(l)?)|exit|an(h(f|l)?|2(f|l)?|f|l)?)|b(s|ort))|g(et(s|c(har)?|env|wc(har)?)|mtime)|r(int(f|l)?|ound(f|l)?|e(name|alloc|wind|m(ove|quo(f|l)?|ainder(f|l)?))|a(nd|ise))|b(search|towc)|m(odf(f|l)?|em(set|c(hr|py|mp)|move)|ktime|alloc|b(s(init|towcs|rtowcs)|towc|len|r(towc|len))))\b</expression>
+		</zone>
+
+		<!-- Function Prototype -->
+		<!-- Function Definition -->
+		
+		<!-- ============
+			 === Misc ===
+			 ============ -->
+
+		<zone name="punctuation.terminator.statement.js">
+			<expression>\;</expression>
+		</zone>
+		<zone name="meta.delimiter.object.comma.js">
+			<expression>,[ |\t]*</expression>
+		</zone>
+		<zone name="meta.delimiter.method.period.js">
+			<expression>\.</expression>
+		</zone>
+		<zone name="meta.brace.curly.open.js">
+			<expression>\{</expression>
+		</zone>
+		<zone name="meta.brace.curly.close.js">
+			<expression>\}</expression>
+		</zone>
+<<<<<<< HEAD:Syntaxes/C XML.xml
+		
+		<zone name="meta.brace.square.c">
+			<expression>\[|\]</expression>
+		</zone>
+		
+		<zone name="meta.argumentstuff.c">
+			<expression>\s*\((\s*([a-zA-Z0-9_,*\[\]]|\s)*)\)\s*</expression>
+			<capture number="1" name="variable.parameter.c"/>
+		</zone>
+	
+		<!--<zone name="meta.argumentstuff.c">
+			<expression>\s*\(([a-zA-Z_][a-zA-Z0-9_]*(\s*\*+)?)(\s+[a-zA-Z_][a-zA-Z0-9_]*(\s*\*+)?)*([a-zA-Z_][a-zA-Z0-9_])*\)\s*</expression>
+=======
+		<zone name="meta.brace.round.js">
+			<expression>\(|\)</expression>
+>>>>>>> 98d15c4... Added itemizers for blocks and function definitions:Syntaxes/C XML.xml
+		</zone>
+<<<<<<< HEAD:Syntaxes/C XML.xml
+	-->
+		<zone name="meta.identifier.c">
+			<expression>\b[a-zA-Z_][a-zA-Z0-9_]*\b</expression>
+		</zone>
+		<zone name="meta.space.c">
+			<expression>\s*</expression>
+=======
+		<zone name="meta.brace.square.js">
+			<expression>\[|\]</expression>
+>>>>>>> 98d15c4... Added itemizers for blocks and function definitions:Syntaxes/C XML.xml
+		</zone>
+		
+		
+		<!-- ====================
+			 === Preprocessor ===
+			 ==================== -->
+		
+			<include collection="preprocessor-rule-enabled"/>
+	        <include collection="preprocessor-rule-disabled"/>
+	        <include collection="preprocessor-rule-other"/>
+		
+		<!-- #define -->	
+		<zone name="meta.preprocessor.macro.c">
+            <starts-with>
+                <expression>^\s*\#\s*(define)\s+((?&lt;id>[a-zA-Z_][a-zA-Z0-9_]*))(?:(\()(\s* \g&lt;id> \s*((,) \s* \g&lt;id> \s*)*(?:\.\.\.)?)(\)))?</expression>
+                <capture number="1" name="keyword.control.import.define.c"/>
+                <capture number="2" name="entity.name.function.preprocessor.c"/>
+                <capture number="4" name="punctuation.definition.parameters.c"/>
+                <capture number="5" name="variable.parameter.preprocessor.c"/>
+                <capture number="7" name="punctuation.separator.parameters.c"/>
+                <capture number="8" name="punctuation.definition.parameters.c"/>
+            </starts-with>
+            <ends-with>
+                <expression>(?=(?://|/\*))|$</expression>
+            </ends-with>
+            <subzones>
+                <zone name="punctuation.separator.continuation.c">
+                    <expression>(?>\\\s*\n)</expression>
+                </zone>
+                <include syntax="$base"/>
+            </subzones>
+        </zone>
+
+		<!-- #warning -->
+		<zone name="meta.preprocessor.diagnostic.c">
+            <starts-with>
+                <expression>^\s*#\s*(error|warning)\b</expression>
+                <capture number="1" name="keyword.control.import.error.c"/>
+            </starts-with>
+            <ends-with>
+                <expression>$</expression>
+                <capture number="1" name="keyword.control.import.error.c"/>
+            </ends-with>
+            <subzones>
+                <zone name="punctuation.separator.continuation.c">
+                    <expression>(?>\\\s*\n)</expression>
+                </zone>
+            </subzones>
+        </zone>
+		
+		<!-- #include -->
+		<zone name="meta.preprocessor.c.include">
+            <starts-with>
+                <expression>^\s*#\s*(include|import)\b\s+</expression>
+                <capture number="1" name="keyword.control.import.include.c"/>
+            </starts-with>
+            <ends-with>
+                <expression>(?=(?://|/\*))|$</expression>
+                <capture number="1" name="keyword.control.import.include.c"/>
+            </ends-with>
+            <subzones>
+                <zone name="punctuation.separator.continuation.c">
+                    <expression>(?>\\\s*\n)</expression>
+                </zone>
+				<zone name="string.quoted.double.include.c">
+					<expression>(")([^"]*)(")</expression>
+					<capture number="1" name="punctuation.include.definition.string.begin.c"/>
+					<capture number="2" name="punctuation.include.definition.string.content.c"/>
+					<capture number="3" name="punctuation.include.definition.string.end.c"/>
+                </zone>
+                <zone name="string.quoted.other.lt-gt.include.c">
+					<expression>(&lt;)([^>]*)(>)</expression>
+					<capture number="1" name="punctuation.include.definition.string.begin.c"/>
+					<capture number="2" name="punctuation.include.definition.string.content.c"/>
+					<capture number="3" name="punctuation.include.definition.string.end.c"/>
+                </zone>
+            </subzones>
+        </zone>
+
+		<!-- #pragma mark -->
+        <include collection="pragma-mark"/>
+        <zone name="meta.preprocessor.c">
+            <starts-with>
+                <expression>^\s*#\s*(define|defined|elif|else|if|ifdef|ifndef|line|pragma|undef)\b</expression>
+                <capture number="1" name="keyword.control.import.c"/>
+            </starts-with>
+            <ends-with>
+                <expression>(?=(?://|/\*))|$</expression>
+                <capture number="1" name="keyword.control.import.c"/>
+            </ends-with>
+            <subzones>
+                <zone name="punctuation.separator.continuation.c">
+                    <expression>(?>\\\s*\n)</expression>
+                </zone>
+            </subzones>
+        </zone>
+
+	</zones>
+	<library>
+		
+		<!-- Escaped Characters in String Literals -->
+		<collection name="string_escaped_char">
+		    <zone name="constant.character.escape.c">
+		        <expression>\\(\\|[abefnprtv'"?]|[0-3]\d{,2}|[4-7]\d?|x[a-fA-F0-9]{,2})</expression>
+		    </zone>
+		    <zone name="invalid.illegal.unknown-escape.c">
+		        <expression>\\.</expression>
+		    </zone>
+		</collection>
+
+		<!-- String Placeholders -->
+		<collection name="string_placeholder">
+		    <zone name="constant.other.placeholder.c">
+		        <expression>%(\d+\$)?[#0\- +']*[,;:_]?((-?\d+)|\*(-?\d+\$)?)?(\.((-?\d+)|\*(-?\d+\$)?)?)?(hh|h|ll|l|j|t|z|q|L|vh|vl|v|hv|hl)?[diouxXDOUeEfFgGaACcSspn%]</expression>
+		    </zone>
+		</collection>
+		
+		<!-- Does something, I'm sure -->
+	    <zone name="invalid.illegal.placeholder.c">
+	        <expression>%</expression>
+	    </zone>
+	
+		<!-- Something to do with #pragma mark -->
+		<collection name="pragma-mark">
+            <zone name="meta.section">
+                <expression>^\s*(#\s*(pragma\s+mark)\s+(.*))</expression>
+                <capture number="1" name="meta.preprocessor.c"/>
+                <capture number="2" name="keyword.control.import.pragma.c"/>
+                <capture number="3" name="meta.toc-list.pragma-mark.c"/>
+            </zone>
+        </collection>
+		
+		<collection name="preprocessor-rule-disabled">
+            <zone>
+                <starts-with>
+                    <expression>^\s*(#(if)\s+(0)\b).*
+</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.if.c"/>
+                    <capture number="3" name="constant.numeric.preprocessor.c"/>
+                </starts-with>
+                <ends-with>
+                    <expression>^\s*(#\s*(endif)\b)</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.if.c"/>
+                    <capture number="3" name="constant.numeric.preprocessor.c"/>
+                </ends-with>
+                <subzones>
+                    <zone>
+                        <starts-with>
+                            <expression>^\s*(#\s*(else)\b)</expression>
+                            <capture number="1" name="meta.preprocessor.c"/>
+                            <capture number="2" name="keyword.control.import.else.c"/>
+                        </starts-with>
+                        <ends-with>
+                            <expression>(?=^\s*#\s*endif\b.*$)</expression>
+                            <capture number="1" name="meta.preprocessor.c"/>
+                            <capture number="2" name="keyword.control.import.else.c"/>
+                        </ends-with>
+                        <subzones>
+                            <include syntax="$base"/>
+                        </subzones>
+                    </zone>
+                    <zone name="comment.block.preprocessor.if-branch">
+                        <starts-with>
+                            <expression></expression>
+                        </starts-with>
+                        <ends-with>
+                            <expression>(?=^\s*#\s*(else|endif)\b.*$)</expression>
+                        </ends-with>
+                        <subzones>
+                            <include collection="disabled"/>
+                            <include collection="pragma-mark"/>
+                        </subzones>
+                    </zone>
+                </subzones>
+            </zone>
+        </collection>
+        <collection name="preprocessor-rule-enabled">
+            <zone>
+                <starts-with>
+                    <expression>^\s*(#(if)\s+(0*1)\b)</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.if.c"/>
+                    <capture number="3" name="constant.numeric.preprocessor.c"/>
+                </starts-with>
+                <ends-with>
+                    <expression>^\s*(#\s*(endif)\b)</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.if.c"/>
+                    <capture number="3" name="constant.numeric.preprocessor.c"/>
+                </ends-with>
+                <subzones>
+                    <zone>
+                        <starts-with>
+                            <expression>^\s*(#\s*(else)\b).*</expression>
+                            <capture number="1" name="meta.preprocessor.c"/>
+                            <capture number="2" name="keyword.control.import.else.c"/>
+                        </starts-with>
+                        <ends-with>
+                            <expression>(?=^\s*#\s*endif\b.*$)</expression>
+                            <capture number="1" name="meta.preprocessor.c"/>
+                            <capture number="2" name="keyword.control.import.else.c"/>
+                        </ends-with>
+                        <subzones name="comment.block.preprocessor.else-branch">
+                            <include collection="disabled"/>
+                            <include collection="pragma-mark"/>
+                        </subzones>
+                    </zone>
+                    <zone>
+                        <starts-with>
+                            <expression></expression>
+                        </starts-with>
+                        <ends-with>
+                            <expression>(?=^\s*#\s*(else|endif)\b.*$)</expression>
+                        </ends-with>
+                        <subzones>
+                            <include syntax="$base"/>
+                        </subzones>
+                    </zone>
+                </subzones>
+            </zone>
+        </collection>
+        <collection name="preprocessor-rule-other">
+            <zone>
+                <starts-with>
+                    <expression>^\s*(#\s*(if(n?def)?)\b.*?(?:(?=(?://|/\*))|$))</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.c"/>
+                </starts-with>
+                <ends-with>
+                    <expression>^\s*(#\s*(endif)\b).*$</expression>
+                    <capture number="1" name="meta.preprocessor.c"/>
+                    <capture number="2" name="keyword.control.import.c"/>
+                </ends-with>
+                <subzones>
+                    <include syntax="$base"/>
+                </subzones>
+            </zone>
+        </collection>
+		
+	</library>
+</syntax>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itemizer>
+	<!--
+	<recipe name="function.c">
+		<class>ESBaseItem</class>
+		<start-selector>function.c:has-child(name:capture(name)):capture(itemizer-firstused) + curly.brace.open.c</start-selector>
+		<end-selector>curly.brace.close.c</end-selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
+
+	<recipe name="block.c.hidden">
+		<class>ESCodeBlockItem</class>
+		<start-selector>curly.brace.open.c</start-selector>
+		<end-selector>curly.brace.close.c</end-selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
+-->
+
+	<!--<recipe name="function.c">
+		<class>ESBaseItem</class>
+		<start-selector>meta.function.c < name:capture(name)</start-selector>
+		<end-selector>curly.brace.close</end-selector>
+	</recipe>
+-->
+
+   
+
+	<recipe name="include.c">
+		<class>ESBaseItem</class>
+		<selector>preprocessor.c.include > string.quoted > content.include:capture(name)</selector>
+	</recipe>
+	
+	<recipe name="pragma-mark.c">
+		<class>ESBaseItem</class>
+		<selector>meta.section > meta.preprocessor > pragma-mark:capture(name)</selector>
+	</recipe>
+
+	<!-- Recipes Todo:
+			struct
+			typedef
+			enum
+			union
+done		#include & #import
+			#pragma mark
+			function def
+			function prototype
+			#if
+			#ifdef
+	-->
+	
+</itemizer>

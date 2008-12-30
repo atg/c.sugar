@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings>
+
+	<language id="net.fileability.sugars.C">
+		
+		<root-zone>sourcecode.c</root-zone>
+		<name>C</name>
+		<detectors>
+			<extension>c</extension>
+		</detectors>
+		
+	</language>
+	
+</settings>
