@@ -139,8 +139,7 @@
 		<zone name="meta.brace.curly.close.js">
 			<expression>\}</expression>
 		</zone>
-<<<<<<< HEAD:Syntaxes/C XML.xml
-		
+
 		<zone name="meta.brace.square.c">
 			<expression>\[|\]</expression>
 		</zone>
@@ -150,24 +149,15 @@
 			<capture number="1" name="variable.parameter.c"/>
 		</zone>
 	
-		<!--<zone name="meta.argumentstuff.c">
-			<expression>\s*\(([a-zA-Z_][a-zA-Z0-9_]*(\s*\*+)?)(\s+[a-zA-Z_][a-zA-Z0-9_]*(\s*\*+)?)*([a-zA-Z_][a-zA-Z0-9_])*\)\s*</expression>
-=======
-		<zone name="meta.brace.round.js">
-			<expression>\(|\)</expression>
->>>>>>> 98d15c4... Added itemizers for blocks and function definitions:Syntaxes/C XML.xml
-		</zone>
-<<<<<<< HEAD:Syntaxes/C XML.xml
-	-->
+
 		<zone name="meta.identifier.c">
 			<expression>\b[a-zA-Z_][a-zA-Z0-9_]*\b</expression>
 		</zone>
 		<zone name="meta.space.c">
 			<expression>\s*</expression>
-=======
+		</zone>
 		<zone name="meta.brace.square.js">
 			<expression>\[|\]</expression>
->>>>>>> 98d15c4... Added itemizers for blocks and function definitions:Syntaxes/C XML.xml
 		</zone>
 		
 		
