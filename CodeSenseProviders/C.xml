@@ -5,23 +5,21 @@ CodeSense Providers map contexts in a document to possible completions. The actu
 
 -->
 <codesense>
-	
 	<provider>
-		<selector>c</selector>
+		<selector>c:not(comment ~ comment)</selector>
 		<completions>net.fileability.c.preprocessor</completions>
 		<complete-match capture="2">(\s*)#([a-zA-Z0-9-]+)</complete-match>
 	</provider>
 	
 	<provider>
-		<selector>c</selector>
+		<selector>c:not(comment ~ comment)</selector>
 		<completions>net.fileability.c.keyword</completions>
 		<complete-match capture="1">\b([a-zA-Z_]+)</complete-match>
 	</provider>
+    
 	<provider>
-		<selector>c</selector>
+		<selector>c:not(comment ~ comment)</selector>
 		<completions>net.fileability.c.storage.type</completions>
 		<complete-match capture="1">\b([a-zA-Z_]+)</complete-match>
 	</provider>
-	
-	
 </codesense>

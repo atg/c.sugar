@@ -3,13 +3,21 @@
 <settings>
 
 	<language id="net.fileability.sugars.C">
-		
 		<root-zone>sourcecode.c</root-zone>
 		<name>C</name>
 		<detectors>
 			<extension>c</extension>
+			<extension>h</extension>
 		</detectors>
-		
 	</language>
+	
+	<meta>
+		<name>C</name>
+		<author>Alex Gordon</author>
+		<identifier>net.fileability.Sugar.c</identifier>
+		<download format="git">git://github.com/fileability/c.sugar.git</download>
+		<url>http://github.com/fileability/c.sugar</url>
+		<dependencies></dependencies>
+  </meta>
 	
 </settings>
